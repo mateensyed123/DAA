@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>City Design – darshan</title>
+ 
+
+
+  <style>
+    body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0f172a;
+  color: white;
+  padding-bottom: 100px;
+  overflow-x: hidden;
+  line-height: 1.6; /* Improved readability for body text */
+}
+
+/* NAVBAR */
+.navbar {
+  background: #1e293b;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 600;
+  color: #38bdf8;
+  animation: logoBounce 1s ease infinite alternate;
+}
+
+@keyframes logoBounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* MAIN CONTENT */
+.content-box {
+  width: 85%;
+  margin: 60px auto;
+  background: #1e293b;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease;
+}
+
+.content-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.content-box h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+  animation: fadeInUp 0.7s forwards;
+}
+
+.content-box h2 {
+  font-size: 22px;
+  color: #38bdf8;
+  margin-bottom: 30px;
+  animation: fadeInUp 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.btn-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.idea-btn {
+  background: #0ea5e9;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.idea-btn:hover {
+  background: #0284c7;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+.idea-btn::after {
+  content: "";
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: 0.6s;
+}
+
+.idea-btn:hover::after {
+  left: 100%;
+}
+
+/* IDEA SECTION */
+.idea-section {
+  width: 80%;
+  margin: 40px auto;
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.7s ease;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.idea-section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.idea-section:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 35px rgba(56,189,248,0.5);
+}
+
+.idea-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #38bdf8;
+  font-size: 24px;
+  margin-bottom: 15px;
+  transition: transform 0.4s ease;
+}
+
+.idea-title img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.6s ease;
+}
+
+.idea-section:hover .idea-title img {
+  transform: rotate(15deg) scale(1.3);
+}
+
+/* Paragraphs and lists spacing */
+.idea-section p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.idea-section ul {
+  margin: 15px 0 20px 25px;
+  padding-left: 20px;
+}
+
+.idea-section ul li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+table.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+table th, table td {
+  border: 1px solid #38bdf8;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+table tr:hover {
+  background-color: rgba(56,189,248,0.15);
+  transform: scale(1.02);
+  transition: 0.3s;
+}
+
+/* Back button styling */
+.back-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 15px;
+  background: #0ea5e9;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: #0284c7;
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* LIST ANIMATION */
+.idea-section ul li {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: listFadeIn 0.5s forwards;
+}
+
+.idea-section.show ul li {
+  animation: listFadeIn 0.5s forwards;
+}
+
+@keyframes listFadeIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .content-box, .idea-section {
+    width: 90%;
+  }
+}
+.topic-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.small-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  background: #10b981; /* greenish for upload button */
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.small-btn:hover {
+  background: #059669; /* darker shade on hover */
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* GitHub button different color */
+.github-btn {
+  background: #6b7280; /* grayish */
+}
+
+.github-btn:hover {
+  background: #4b5563; /* darker gray */
+}
+
+
+  /* Image container */
+.diagram-section {
+  text-align: center;
+  margin: 30px auto;
+}
+
+/* Project diagram image */
+.project-img {
+  width: 100%;
+  max-width: 650px;
+  height: 400px;
+  display: block;
+  margin: 20px auto;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Optional hover effect (can remove if not needed) */
+.project-img:hover {
+  transform: scale(1.03);
+  transition: 0.3s ease;
+}
+table {
+  display: table;
+}
+
+
+
+
+
+   
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="logo">CITY DESIGN</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="Project.html">Project</a></li>
+      <li><a href="darshan.html">darshan</a></li>
+      <li><a href="mateen.html">mateen</a></li>
+      <li><a href="himanshu.html">himanshu</a></li>
+      <li><a href="omkar.html">omkar</a></li>
+      <li><a href="collab.html">Collab</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="content-box">
+  <h1>darshan</h1>
+  <h2>Identified Business Ideas</h2>
+  <div class="btn-container">
+    <button class="idea-btn" onclick="location.href='#idea1'">Educational Institutions</button>
+    <button class="idea-btn" onclick="location.href='#idea2'">Healthcare & Wellness</button>
+    <button class="idea-btn" onclick="location.href='#idea3'">Eco-mobility</button>
+    <button class="idea-btn" onclick="location.href='#idea4'">Residential</button>
+    <button class="idea-btn" onclick="location.href='#idea5'">Finance</button>
+    
+  </div>
+</div>
+
+<!-- IDEA 1: Educational Institutions -->
+<!-- IDEA 1: Educational Institutions -->
+<div id="idea1" class="idea-section show">
+  <div class="idea-title">
+   <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png">
+  <h3>Educational Institutions</h3>
+</div>
+  <p>
+    Educational institutions such as schools, colleges, and universities form the
+    backbone of a smart city. Efficient planning ensures accessibility, reduced travel
+    time, balanced resource usage, and scalable academic infrastructure.
+  </p>
+  <section class="diagram-section">
+    <h2>DAA Algorithms in Smart Education</h2>
+<img
+      src="https://raw.githubusercontent.com/darshanganeshbatti/city-design/main/image_91bbb031.png"
+      alt="DAA Algorithms Diagram"
+      class="project-img"
+      loading="lazy"
+    ></section>
+
+  <b>Problems Addressed:</b>
+  <ul>
+    <li>Long commuting distances for students</li>
+    <li>Overcrowding in popular institutions</li>
+    <li>Inefficient campus connectivity</li>
+    <li>Slow access to academic records</li>
+  </ul>
+ 
+
+   
+
+   
+
+
+
+  <b>Algorithms & Data Structures Used:</b>
+
+  <ul>
+    <li>
+      <b>BFS (Breadth First Search)</b><br>
+      Purpose: Identify nearest educational institutions from residential areas.<br>
+      Time Complexity: O(V + E)<br>
+      Space Complexity: O(V)
+</li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/bfs.cpp"
+   target="_blank"
+   class="small-btn">
+  BFS code
+</a>
+
+<br>
+    <li>
+      <b>DFS (Depth First Search)</b><br>
+      Purpose: Verify connectivity between buildings inside a campus.<br>
+      Time Complexity: O(V + E)<br>
+      Space Complexity: O(V)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/dfs.cpp"
+   target="_blank"
+   class="small-btn">
+  DFS code
+</a>
+
+<br>
+    <li>
+      <b>Dijkstra’s Algorithm</b><br>
+      Purpose: Compute shortest travel paths for students and school buses.<br>
+      Time Complexity: O((V + E) log V)<br>
+      Space Complexity: O(V)
+    </li>
+    <a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/dijkstra's.cpp"
+   target="_blank"
+   class="small-btn">
+  Dijkstra's code
+</a>
+
+<br>
+
+    <li>
+      <b>Prim’s Algorithm</b><br>
+      Purpose: Construct minimum-cost internal infrastructure (wiring, roads).<br>
+      Time Complexity: O(E log V)<br>
+      Space Complexity: O(V)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/prim's.cpp"
+   target="_blank"
+   class="small-btn">
+  Prim's code
+</a>
+
+<br>
+    <li>
+      <b>Kruskal’s Algorithm</b><br>
+      Purpose: Connect campus blocks with minimal wiring cost.<br>
+      Time Complexity: O(E log E)<br>
+      Space Complexity: O(V)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/kruskal's.cpp"
+   target="_blank"
+   class="small-btn">
+  Kruskal's code
+</a>
+
+<br>
+    <li>
+      <b>Priority Queue (Min Heap)</b><br>
+      Purpose: Allocate admissions based on priority and merit ranking.<br>
+      Time Complexity: O(log n) per insertion/deletion<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/priorityqueue.cpp"
+   target="_blank"
+   class="small-btn">
+  Priority queue code
+</a>
+
+<br>
+    <li>
+      <b>Sorting Algorithms (Merge / Quick Sort)</b><br>
+      Purpose: Rank students and institutions based on performance metrics.<br>
+      Time Complexity: O(n log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/sorting.cpp"
+   target="_blank"
+   class="small-btn">
+  Sorting code
+</a>
+
+<br>
+    <li>
+      <b>Hash Table</b><br>
+      Purpose: Fast lookup of student, faculty, and course records.<br>
+      Time Complexity: O(1) average<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/hash.cpp"
+   target="_blank"
+   class="small-btn">
+  Hash code
+</a>
+
+<br>
+    <li>
+      <b>Red-Black Tree</b><br>
+      Purpose: Maintain balanced and ordered student databases.<br>
+      Time Complexity: O(log n) for search, insert, delete<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/rbtree.cpp"
+   target="_blank"
+   class="small-btn">
+  Red-Black Tree code
+</a>
+
+<br>
+    <li>
+      <b>Fenwick Tree (Binary Indexed Tree)</b><br>
+      Purpose: Efficient attendance tracking and score updates.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/fenwick.cpp"
+   target="_blank"
+   class="small-btn">
+  Fenwick code
+</a>
+
+<br>
+    <li>
+      <b>Segment Tree</b><br>
+      Purpose: Range queries for classroom and lab utilization analysis.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+    <a href="https://github.com/darshanganeshbatti/city-design/blob/main/eductional/segment.cpp"
+   target="_blank"
+   class="small-btn">
+  Segment code
+</a>
+  </ul>
+
+
+<br>
+  <b>Algorithm Design Techniques Used:</b>
+  <ul>
+    <li>Greedy Technique (Dijkstra, Prim, Kruskal)</li>
+    <li>Divide and Conquer (Sorting, Segment Tree)</li>
+    <li>Transform and Conquer (Balancing via Red-Black Tree)</li>
+  </ul>
+
+  <b>Principles Applied:</b>
+  <ul>
+    <li>Shortest Path Principle</li>
+    <li>Minimum Spanning Tree Principle</li>
+    <li>Connectivity and Reachability</li>
+    <li>Balancing Principle</li>
+    <li>Efficient Range Query Processing</li>
+  </ul>
+
+  <b>SDG Alignment:</b>
+  <ul>
+    <li>SDG 4 – Quality Education</li>
+    <li>SDG 9 – Industry, Innovation & Infrastructure</li>
+    <li>SDG 11 – Sustainable Cities & Communities</li>
+  </ul>
+  <a href="https://github.com/darshanganeshbatti/city-design/tree/main/dataset/educational"
+   target="_blank"
+   class="small-btn">
+  Data set
+</a>
+</div>
+
+
+
+
+<!-- IDEA 2: Healthcare & Wellness -->
+<!-- IDEA 2: Healthcare & Wellness -->
+<div id="idea2" class="idea-section">
+  <div class="idea-title">
+    <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png">
+  <h3>Healthcare & Wellness</h3>
+</div>
+  <p>
+    Healthcare and wellness infrastructure ensures timely medical assistance,
+    efficient resource utilization, and overall well-being of citizens in a smart city.
+  </p>
+<img
+      src="https://raw.githubusercontent.com/darshanganeshbatti/city-design/main/image_aed42b28.png"
+      alt="DAA Algorithms Diagram"
+      class="project-img"
+      loading="lazy"
+    >
+ 
+  <b>Problems Addressed:</b>
+  <ul>
+    <li>Delayed emergency response</li>
+    <li>Unequal hospital coverage</li>
+    <li>Overcrowding in major hospitals</li>
+    <li>Inefficient resource allocation</li>
+  </ul>
+
+  <b>Algorithms & Data Structures Used:</b>
+  <ul>
+    <li>
+      <b>BFS</b><br>
+      Purpose: Identify healthcare coverage areas.<br>
+      Time Complexity: O(V + E)<br>
+      Space Complexity: O(V)
+    </li>
+    <a href="https://github.com/darshanganeshbatti/city-design/blob/main/healthcare&wellness/bfs.cpp"
+   target="_blank"
+   class="small-btn">
+  Segment code
+</a>
+
+    <li>
+      <b>Dijkstra's Algorithm</b><br>
+      Purpose: Find fastest route to hospitals considering traffic.<br>
+      Time Complexity: O(E) best case<br>
+      Space Complexity: O(V)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/healthcare&wellness/dijkstra's.cpp"
+   target="_blank"
+   class="small-btn">
+  Dijkstra's code
+</a>
+    <li>
+      <b>Priority Queue (Min Heap)</b><br>
+      Purpose: Assign patients to nearest available hospital.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/healthcare&wellness/priorityqueue.cpp"
+   target="_blank"
+   class="small-btn">
+  Priority queue code
+</a>
+    <li>
+      <b>Fenwick Tree</b><br>
+      Purpose: Track real-time bed and equipment availability.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/healthcare&wellness/fenwick.cpp"
+   target="_blank"
+   class="small-btn">
+  Fenwick code
+</a>
+    <li>
+      <b>Segment Tree</b><br>
+      Purpose: Query zone-wise healthcare capacity.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/healthcare&wellness/segment.cpp"
+   target="_blank"
+   class="small-btn">
+  Segment code
+</a>
+    <li>
+      <b>Hash Table</b><br>
+      Purpose: Fast access to patient and hospital records.<br>
+      Time Complexity: O(1) average<br>
+      Space Complexity: O(n)
+    </li>
+    <a href="https://github.com/darshanganeshbatti/city-design/blob/main/healthcare&wellness/hastab.cpp"
+   target="_blank"
+   class="small-btn">
+  Hash  code
+</a>
+  </ul>
+
+  <b>Algorithm Design Techniques Used:</b>
+  <ul>
+    <li>Greedy Technique</li>
+    <li>Dynamic Programming</li>
+    <li>Divide and Conquer</li>
+  </ul>
+
+  <b>Principles Applied:</b>
+  <ul>
+    <li>Shortest Path Principle</li>
+    <li>Coverage & Reachability</li>
+    <li>Edge Relaxation</li>
+    <li>Pre-computing</li>
+  </ul>
+
+  <b>SDG Alignment:</b>
+<ul>
+  <li>SDG 4 – Quality Education</li>
+  <li>SDG 9 – Industry, Innovation & Infrastructure</li>
+  <li>SDG 11 – Sustainable Cities & Communities</li>
+</ul>
+<a href="https://github.com/darshanganeshbatti/city-design/tree/main/dataset/health care"
+   target="_blank"
+   class="small-btn">
+  Data set
+</a>
+</div>
+
+
+<!-- IDEA 3: Eco-mobility -->
+  <div id="idea3" class="idea-section">
+     <div class="idea-title">
+    <img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png">
+  <h3>Eco-Mobility & Transportation</h3>
+</div>
+  <p>
+    🌱 Eco-mobility focuses on sustainable and efficient transportation systems
+    that reduce congestion, pollution, and travel time.
+  </p>
+<img
+      src="https://raw.githubusercontent.com/darshanganeshbatti/city-design/main/image_2a052f2d.png"
+      alt="DAA Algorithms Diagram"
+      class="project-img"
+      loading="lazy"
+    >
+ 
+  <b>Problems Addressed:</b>
+  <ul>
+    <li>Traffic congestion</li>
+    <li>High fuel consumption</li>
+    <li>Poor public transport routing</li>
+    <li>Disconnected road networks</li>
+  </ul>
+
+  <b>Algorithms & Data Structures Used:</b>
+  <ul>
+    <li>
+      <b>Dijkstra’s Algorithm</b><br>
+      Purpose: Compute shortest and fuel-efficient routes.<br>
+      Time Complexity: O((V + E) log V)<br>
+      Space Complexity: O(V)
+    </li>
+ <a href="https://github.com/darshanganeshbatti/city-design/blob/main/ecomobility/dijkstra's.cpp"
+   target="_blank"
+   class="small-btn">
+  Dijkstra's code
+</a> <br>
+    <li>
+      <b>Floyd–Warshall Algorithm</b><br>
+      Purpose: Find shortest paths between all intersections.<br>
+      Time Complexity: O(V³)<br>
+      Space Complexity: O(V²)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/ecomobility/floyd.cpp"
+   target="_blank"
+   class="small-btn">
+  Floyd Warshall code
+</a> <br>
+    <li>
+      <b>Kruskal’s Algorithm</b><br>
+      Purpose: Design minimum-cost road networks.<br>
+      Time Complexity: O(E log E)<br>
+      Space Complexity: O(V)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/ecomobility/kruskal's.cpp"
+   target="_blank"
+   class="small-btn">
+  Kruskal's code
+</a> <br>
+    <li>
+      <b>Union-Find</b><br>
+      Purpose: Check connectivity of transport zones.<br>
+      Time Complexity: O(α(n))<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/ecomobility/union.cpp"
+   target="_blank"
+   class="small-btn">
+ Union find(disjoint) code
+</a> <br>
+    <li>
+      <b>Heap</b><br>
+      Purpose: Manage traffic signal priorities.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+    <a href="https://github.com/darshanganeshbatti/city-design/blob/main/ecomobility/heap.cpp"
+   target="_blank"
+   class="small-btn">
+  Heap code
+</a> <br>
+  </ul>
+
+  <b>Algorithm Design Techniques Used:</b>
+  <ul>
+    <li>Greedy Technique</li>
+    <li>Transform and Conquer</li>
+  </ul>
+
+  <b>Principles Applied:</b>
+  <ul>
+    <li>Cut & Cycle Property</li>
+    <li>Shortest Path Trees</li>
+    <li>Connectivity & Reachability</li>
+  </ul>
+
+  <b>SDG Alignment:</b>
+  <ul>
+    <li>SDG 11 – Sustainable Cities & Communities</li>
+    <li>SDG 13 – Climate Action</li>
+  </ul>
+  <a href="https://github.com/darshanganeshbatti/city-design/tree/main/dataset/ecomobility"
+   target="_blank"
+   class="small-btn">
+  Data set
+</a>
+</div>
+
+
+
+<!-- IDEA 4: Residential -->
+
+ <div id="idea4" class="idea-section">
+  <div class="idea-title">
+    <img src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png">
+  <h3>Residential Areas</h3>
+  </div>
+
+  <p>
+    Residential planning ensures balanced population distribution,
+    accessibility to essential services, and sustainable housing.
+  </p>
+<img
+      src="https://raw.githubusercontent.com/darshanganeshbatti/city-design/main/image_bf6d519b.png"
+      alt="DAA Algorithms Diagram"
+      class="project-img"
+      loading="lazy"
+    >
+
+  <b>Problems Addressed:</b>
+  <ul>
+    <li>Overcrowding</li>
+    <li>Poor service accessibility</li>
+    <li>Unbalanced infrastructure growth</li>
+  </ul>
+
+  <b>Algorithms & Data Structures Used:</b>
+  <ul>
+    <li>
+      <b>AVL Tree</b><br>
+      Purpose: Maintain balanced housing records.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/residential/avl.cpp"
+   target="_blank"
+   class="small-btn">
+ AVL code
+</a> <br>
+    <li>
+      <b>Red-Black Tree</b><br>
+      Purpose: Fast residential data updates.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/residential/rbtree.cpp"
+   target="_blank"
+   class="small-btn">
+Red-black code
+</a> <br>
+    <li>
+      <b>Greedy Algorithm</b><br>
+      Purpose: Allocate housing based on demand.<br>
+      Time Complexity: O(n log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/residential/greedy.cpp"
+   target="_blank"
+   class="small-btn">
+   Greedy</a> <br>
+    </ul>
+
+  <b>Algorithm Design Techniques Used:</b>
+  <ul>
+    <li>Greedy Technique</li>
+    <li>Space-Time Tradeoff</li>
+  </ul>
+
+  <b>Principles Applied:</b>
+  <ul>
+    <li>Balance Maintenance</li>
+    <li>Partition Principle</li>
+    <li>Hierarchical Data</li>
+  </ul>
+
+  <b>SDG Alignment:</b>
+  <ul>
+    <li>SDG 11 – Sustainable Cities & Communities</li>
+  </ul>
+  <a href="https://github.com/darshanganeshbatti/city-design/tree/main/dataset/residential"
+   target="_blank"
+   class="small-btn">
+  Data set
+</a>
+</div>
+
+
+
+<!-- IDEA 5: Finance -->
+<div id="idea5" class="idea-section">
+  <div class="idea-title">
+    <img src="https://cdn-icons-png.flaticon.com/512/2331/2331940.png">
+    </div>
+  <h3>Finance & Banking</h3>
+<img
+      src="https://raw.githubusercontent.com/darshanganeshbatti/city-design/main/image_844921ac.png"
+      alt="DAA Algorithms Diagram"
+      class="project-img"
+      loading="lazy"
+    >
+ 
+  <p>
+    Smart financial infrastructure ensures secure transactions,
+    optimal ATM placement, and inclusive banking services.
+  </p>
+
+  <b>Problems Addressed:</b>
+  <ul>
+    <li>Uneven ATM distribution</li>
+    <li>High transaction delays</li>
+    <li>Inefficient cash replenishment</li>
+  </ul>
+
+  <b>Algorithms & Data Structures Used:</b>
+  <ul>
+    <li>
+      <b>Graph</b><br>
+      Purpose: Model connectivity between banks and users.<br>
+      Time Complexity: O(V + E)<br>
+      Space Complexity: O(V + E)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/finance/graph.cpp"
+   target="_blank"
+   class="small-btn">
+  Graph code</a>
+    <li>
+      <b>Priority Queue</b><br>
+      Purpose: Find nearest ATM dynamically.<br>
+      Time Complexity: O(log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/finance/priorityqueue.cpp"
+   target="_blank"
+   class="small-btn">
+  Priority queue code
+</a><br>
+    <li>
+      <b>Dynamic Programming</b><br>
+      Purpose: Optimize cash replenishment schedules.<br>
+      Time Complexity: O(n × m)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/finance/dynamic.cpp"
+   target="_blank"
+   class="small-btn">
+  Dynamic code
+</a> <br>
+    <li>
+      <b>Sorting Algorithms</b><br>
+      Purpose: Rank ATMs by usage and demand.<br>
+      Time Complexity: O(n log n)<br>
+      Space Complexity: O(n)
+    </li>
+<a href="https://github.com/darshanganeshbatti/city-design/blob/main/finance/sorting.cpp"
+   target="_blank"
+   class="small-btn">
+  Sorting code</a>
+    <li>
+      <b>Hash Table</b><br>
+      Purpose: Fast transaction record lookup.<br>
+      Time Complexity: O(1)<br>
+      Space Complexity: O(n)
+    </li>
+    <a href="https://github.com/darshanganeshbatti/city-design/blob/main/finance/hash.cpp"
+   target="_blank"
+   class="small-btn">
+  Hash table code</a>
+  </ul>
+
+  <b>Algorithm Design Techniques Used:</b>
+  <ul>
+    <li>Greedy Technique</li>
+    <li>Divide and Conquer</li>
+  </ul>
+
+  <b>Principles Applied:</b>
+  <ul>
+    <li>Dynamic Optimization</li>
+    <li>Pruning</li>
+    <li>Edge Relaxation</li>
+  </ul>
+
+  <b>SDG Alignment:</b>
+  <ul>
+    <li>SDG 8 – Decent Work & Economic Growth</li>
+    <li>SDG 9 – Industry, Innovation & Infrastructure</li>
+  </ul>
+  <a href="https://github.com/darshanganeshbatti/city-design/tree/main/dataset/finance"
+   target="_blank"
+   class="small-btn">
+  Data set
+</a><br><br>
+
+<h3>Efficiency and Usage of Algorithms in Smart City Design</h3>
+  <table>
+  <tr>
+    <th>Algorithm / Data Structure</th>
+    <th>Used?</th>
+    <th>Application in Project</th>
+    <th>Time Complexity</th>
+    <th>Space Complexity</th>
+  </tr>
+
+  <tr>
+    <td>Breadth First Search (BFS)</td>
+    <td>Yes</td>
+    <td>Nearest schools, healthcare coverage</td>
+    <td>O(V + E)</td>
+    <td>O(V)</td>
+  </tr>
+
+  <tr>
+    <td>Depth First Search (DFS)</td>
+    <td>Yes</td>
+    <td>Campus and building connectivity</td>
+    <td>O(V + E)</td>
+    <td>O(V)</td>
+  </tr>
+
+  <tr>
+    <td>Dijkstra’s Algorithm</td>
+    <td>Yes</td>
+    <td>Student transport, hospital routing, eco-mobility</td>
+    <td>O((V + E) log V)</td>
+    <td>O(V)</td>
+  </tr>
+
+  <tr>
+    <td>Prim’s Algorithm</td>
+    <td>Yes</td>
+    <td>Campus infrastructure planning</td>
+    <td>O(E log V)</td>
+    <td>O(V)</td>
+  </tr>
+
+  <tr>
+    <td>Kruskal’s Algorithm</td>
+    <td>Yes</td>
+    <td>Road networks and infrastructure wiring</td>
+    <td>O(E log E)</td>
+    <td>O(V)</td>
+  </tr>
+
+  <tr>
+    <td>Floyd–Warshall Algorithm</td>
+    <td>Yes</td>
+    <td>All-pairs shortest paths in eco-mobility</td>
+    <td>O(V³)</td>
+    <td>O(V²)</td>
+  </tr>
+
+  <tr>
+    <td>Priority Queue (Min Heap)</td>
+    <td>Yes</td>
+    <td>Admissions, patient allocation, ATM search</td>
+    <td>O(log n)</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>Sorting Algorithms (Merge / Quick)</td>
+    <td>Yes</td>
+    <td>Ranking students, ATMs, institutions</td>
+    <td>O(n log n)</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>Hash Table</td>
+    <td>Yes</td>
+    <td>Student, patient, and banking record lookup</td>
+    <td>O(1) (avg)</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>Red-Black Tree</td>
+    <td>Yes</td>
+    <td>Balanced student and residential databases</td>
+    <td>O(log n)</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>AVL Tree</td>
+    <td>Yes</td>
+    <td>Housing record maintenance</td>
+    <td>O(log n)</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>Fenwick Tree (Binary Indexed Tree)</td>
+    <td>Yes</td>
+    <td>Attendance, beds and equipment tracking</td>
+    <td>O(log n)</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>Segment Tree</td>
+    <td>Yes</td>
+    <td>Capacity and utilization queries</td>
+    <td>O(log n)</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>Union-Find (Disjoint Set)</td>
+    <td>Yes</td>
+    <td>Transport zone connectivity</td>
+    <td>O(α(n))</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>Greedy Algorithms</td>
+    <td>Yes</td>
+    <td>Housing allocation, ATM placement, routing</td>
+    <td>O(n log n)</td>
+    <td>O(n)</td>
+  </tr>
+
+  <tr>
+    <td>Dynamic Programming</td>
+    <td>Yes</td>
+    <td>Cash replenishment optimization</td>
+    <td>O(n × m)</td>
+    <td>O(n)</td>
+  </tr>
+
+ 
+
+  <tr>
+    <td>Stack</td>
+    <td>No</td>
+    <td>Undo/recursion not required</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+
+  <tr>
+    <td>Bubble Sort</td>
+    <td>No</td>
+    <td>Inefficient for large datasets</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+</table><br><br>
+<!-- REFLECTIONS -->
+
+    <h3>Reflections & Learnings</h3>
+
+
+  <p>
+    Working on the Smart City Design project provided insights into the practical
+    application of algorithms and data structures in real-world urban planning.
+  </p>
+
+  <ul>
+    <li>
+      Understanding the importance of algorithm efficiency for large-scale infrastructure planning.
+    </li>
+    <li>
+      Applying graph algorithms like BFS, DFS, Dijkstra, Prim, and Kruskal to model city connectivity.
+    </li>
+    <li>
+      Realizing the value of data structures like Hash Tables, Segment Trees, and Red-Black Trees for managing complex datasets efficiently.
+    </li>
+    <li>
+      Exploring sustainable and smart solutions for different city sectors, including education, healthcare, finance, and transportation.
+    </li>
+    <li>
+      Learning to align technological solutions with Sustainable Development Goals (SDGs) to ensure social and environmental impact.
+    </li>
+  </ul>
+
+  <p>
+    Overall, this project strengthened problem-solving skills, highlighted the importance of scalable design, and emphasized the practical integration of algorithms in creating smart, sustainable cities.
+  </p>
+</div>
+
+</div>
+
+
+<script>
+const sections = document.querySelectorAll('.content-box, .idea-section');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+
+      // Animate tables inside this section
+      entry.target.querySelectorAll('table').forEach(table => {
+        table.classList.add('show');
+      });
+
+      // Animate list items
+      entry.target.querySelectorAll('ul li').forEach((li,index)=>{
+        li.style.animationDelay = `${index*0.2}s`;
+        li.style.opacity = '1'; // make sure opacity works
+        li.style.transform = 'translateX(0)';
+      });
+    }
+  });
+}, { threshold: 0.1 }); // lower threshold for sections far down
+
+sections.forEach(section => observer.observe(section));
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
